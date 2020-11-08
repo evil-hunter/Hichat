@@ -4,8 +4,7 @@ var http = require('http')
 var date = new Date()
 
 function formDate(date) {
-    return `${date.getFullYear()}-${date.getMonth + 1}-${date.getDate()
-    } ${date.getHours()}:${date.getMinutes()}`
+    return `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()} ${date.getHours()}:${date.getMinutes()}`
 }
 
 var server = http.createServer((req, res) => {
