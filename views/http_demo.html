@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>http_demo</title>
+    <script src="/socket.io/socket.io.js"></script>
+</head>
+<body>
+      <h1>模拟聊天室，nodejs测试<br/>聊天框</h1>
+      <div id="infos"></div>
+      <input type="text" id="send_info" value="" placeholder="输入内容" />
+      <input class="input" type="text" id="nick" value="" placeholder="输入昵称" />
+      <button type="button" id="btn">发送</button>     
+</body>
+
+<script>
+    var socket = io();
+    document.getElementById("btn").onclick = function() {
+        if(document.getElementById("send_info").value) {
+            socket.emit("link_to_server", document.getElementById("send_info").value, 
+            document.getElementById("nick").value ? document.getElementById("nick").value : '匿名')
+        } else {
+            alert(`发送结果不能为空`)
+        }
+    }
+
+    socket.on('link_to_client', function (msg) {
+    var h6 = document.createElement('h6');
+    h6.innerText = `${msg}`;
+    document.getElementById('infos').append(h6)
+  })
+</script>
+
+<style>
+  body {
+    background: #307ac6;
+    text-align: center;
+    color: aliceblue;
+    position: relative;
+  }
+  p {
+    width: 1000px;
+    height: 300px;
+    font-size: 2rem;
+  }
+  input {
+    position: fixed ;
+    bottom: 0;
+    border: none;
+    width: 100px;
+    height: 40px;
+    bottom: 100px;
+    margin-left: 280px;
+  }
+  button {
+    position: fixed ;
+    bottom: 100px;
+    margin-left: 400px;
+    border: none;
+    background: #f37b1d;
+    width: 100px;
+    height: 44px;
+    color: #000000;
+    z-index: 9;
+  }
+  #infos {
+    position: absolute;
+    margin-left: -500px;
+    margin-top: 50px;
+    top: 50%;
+    left: 50%;
+    width: 1000px;
+    height: 550px;
+    overflow: scroll;
+    background: #ffffff;
+    color: #000000;
+  }
+  #send_info {
+    width: 1000px;
+    height: 120px;
+    border: 0;
+    position: fixed;
+    margin-left: -500px;
+    bottom: 150px;
+    background-color: #ffffff;
+    z-index: 9;
+  }
+</style>
+</html>
